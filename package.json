@@ -2,9 +2,10 @@
   "name": "awaitabase",
   "version": "1.0.0",
   "description": "Wait for a database to be available prior to closing the process.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --declaration"
+    "test": "npm run build && node . postgres",
+    "build": "tsc --declaration && tsc-alias"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,14 @@
   "homepage": "https://github.com/ridafkih/awaitabase#readme",
   "devDependencies": {
     "ts-loader": "^9.2.8",
+    "ts-node": "^10.7.0",
+    "tsc-alias": "^1.6.4",
+    "tsconfig-paths": "^3.14.0",
     "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "cli-spinners": "^2.6.1",
+    "dotenv": "^16.0.0",
+    "pg-promise": "^10.11.1"
   }
 }
