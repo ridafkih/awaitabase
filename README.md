@@ -14,7 +14,7 @@ npx awaitabase postgres postgres://user:password@localhost/database
 # ✔ Database confirmed as active
 ```
 
-### Inside NPM Project...
+### Inside NPM Project
 
 ```sh
 npm i -D awaitabase
