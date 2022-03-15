@@ -20,7 +20,7 @@ if (!supportedDrivers.has(driver))
 if (!url && !DATABASE_URL)
   throw new Error("You must provide a URL to the database.");
 
-const tooltip = "Connecting to database...";
+const tooltip = "Waiting for database...";
 const { getAttemptsData, markAttempt } = makeAttemptsTracker(MAX_ATTEMPTS);
 
 const database = pg();
@@ -31,7 +31,7 @@ const spinner = ora(`${tooltip} ${getAttemptsData().display}`).start();
  * and exits the process.
  */
 const handleSuccess = () => {
-  spinner.succeed("Database confirmed as active");
+  spinner.succeed("Database confirmed as active!");
   process.exit(0);
 };
 
