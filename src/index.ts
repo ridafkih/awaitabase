@@ -43,7 +43,7 @@ const handleFailure = () => {
   const { attempts } = getAttemptsData();
 
   if (attempts < MAX_ATTEMPTS) setTimeout(main, ATTEMPT_INTERVAL);
-  else throw new Error("DB connection attempts has been exceeded.");
+  else throw new Error("Exceeded the maximum number of attempts.");
 
   spinner.text = `${tooltip} ${getAttemptsData().display}`;
 };
