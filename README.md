@@ -4,6 +4,12 @@ A CLI tool that allows you to ensure a database is live before closing the proce
 
 ## Usage
 
+### Command Structure
+```sh
+# If the optionalUrl is not defined, it will default to the DATABASE_URL environment variable.
+npx awaitabase [driver] [optionalUrl]
+```
+
 ### General CLI
 
 ```sh
