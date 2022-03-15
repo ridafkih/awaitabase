@@ -2,6 +2,8 @@
 
 A CLI tool that allows you to ensure a database is live before closing the process.
 
+https://user-images.githubusercontent.com/9158485/158486267-4c935183-257f-451b-96d1-5f47659b58f4.mov
+
 ## Usage
 
 ### Command Structure
