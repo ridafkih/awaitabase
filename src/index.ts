@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import pg from "pg-promise";
 import ora from "ora";
 
