@@ -1,0 +1,23 @@
+{
+  "name": "awaitabase",
+  "version": "1.0.0",
+  "description": "Wait for a database to be available prior to closing the process.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --declaration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ridafkih/awaitabase.git"
+  },
+  "keywords": [
+    "database",
+    "await"
+  ],
+  "author": "Rida F'kih",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ridafkih/awaitabase/issues"
+  },
+  "homepage": "https://github.com/ridafkih/awaitabase#readme"
+}
