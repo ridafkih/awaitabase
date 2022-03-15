@@ -29,8 +29,8 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "cli-spinners": "^2.6.1",
     "dotenv": "^16.0.0",
+    "ora": "^5.4.1",
     "pg-promise": "^10.11.1"
   }
 }

@@ -1,7 +1,9 @@
 import pg from "pg-promise";
+import ora from "ora";
 
 import env from "@/utils/env";
 import supportedDrivers from "@/constants/supportedDrivers";
+import { makeAttemptsTracker } from "./utils/attempts";
 
 const MAX_ATTEMPTS = 30; // #
 const ATTEMPT_INTERVAL = 1000; // ms
@@ -16,16 +18,34 @@ if (!supportedDrivers.has(driver))
 if (!url && !DATABASE_URL)
   throw new Error("You must provide a URL to the database.");
 
-let attempts = 0;
+const tooltip = "Connecting to database...";
+const { getAttemptsData, markAttempt } = makeAttemptsTracker(MAX_ATTEMPTS);
+
 const database = pg();
+const spinner = ora(`${tooltip} ${getAttemptsData().display}`).start();
 
 /**
- * Handles a database connection failure.
+ * Handles successful state, marks spinner as complete
+ * and exits the process.
+ */
+const handleSuccess = () => {
+  spinner.succeed("Database confirmed as active");
+  process.exit(0);
+};
+
+/**
+ * Handles a database connection failure by re-attempting connection,
+ * or closing the process if attempts have been exceeded.
  */
 const handleFailure = () => {
   database.end();
-  if (++attempts < MAX_ATTEMPTS) setTimeout(main, ATTEMPT_INTERVAL);
+  markAttempt();
+  const { attempts } = getAttemptsData();
+
+  if (attempts < MAX_ATTEMPTS) setTimeout(main, ATTEMPT_INTERVAL);
   else throw new Error("DB connection attempts has been exceeded.");
+
+  spinner.text = `${tooltip} ${getAttemptsData().display}`;
 };
 
 /**
@@ -34,7 +54,7 @@ const handleFailure = () => {
 const main = (): Promise<void> =>
   database(url || (DATABASE_URL as string))
     .connect()
-    .then(() => process.exit(0))
+    .then(handleSuccess)
     .catch(handleFailure);
 
 main();
