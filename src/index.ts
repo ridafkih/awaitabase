@@ -3,9 +3,10 @@
 import pg from "pg-promise";
 import ora from "ora";
 
-import env from "@/utils/env";
 import supportedDrivers from "@/constants/supportedDrivers";
-import { makeAttemptsTracker } from "./utils/attempts";
+
+import env from "@/utils/env";
+import { makeAttemptsTracker } from "@/utils/attempts";
 
 const MAX_ATTEMPTS = 30; // #
 const ATTEMPT_INTERVAL = 1000; // ms
