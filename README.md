@@ -1,3 +1,5 @@
+[![Deploy Package on NPM](https://github.com/ridafkih/awaitabase/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/ridafkih/awaitabase/actions/workflows/npm-publish.yml)
+
 # Awaitabase
 
 A CLI tool that allows you to ensure a database is live before closing the process.
