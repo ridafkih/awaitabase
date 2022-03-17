@@ -1,6 +1,6 @@
 {
   "name": "awaitabase",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Wait for a database to be available prior to closing the process.",
   "main": "dist/index.js",
   "scripts": {
