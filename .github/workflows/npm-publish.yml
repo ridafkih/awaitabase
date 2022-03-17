@@ -1,9 +1,6 @@
 name: Deploy Package on NPM
 
 on:
-  push:
-    tags:
-      - 'v*'
   release:
     types: [published]
 
