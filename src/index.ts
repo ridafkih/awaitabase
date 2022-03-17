@@ -1,21 +1,24 @@
 #!/usr/bin/env node
 
-import pg from "pg-promise";
 import ora from "ora";
 
-import supportedDrivers from "@/constants/supportedDrivers";
-
+import drivers from "@/utils/drivers";
 import env from "@/utils/env";
 import { makeAttemptsTracker } from "@/utils/attempts";
+
+import AwaitabaseArgs from "@/@types/AwaitabaseArgs";
+import DriverMethodName from "@/@types/DriverMethodName";
+import supportedDrivers from "@/constants/supportedDrivers";
 
 const MAX_ATTEMPTS = 30; // #
 const ATTEMPT_INTERVAL = 1000; // ms
 
 const { DATABASE_URL } = env;
 
-const [driver, url]: string[] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const [driver, url]: AwaitabaseArgs = args as AwaitabaseArgs;
 
-if (!supportedDrivers.has(driver))
+if (!supportedDrivers.has(driver as DriverMethodName))
   throw new Error("Please provide a valid & supported driver.");
 
 if (!url && !DATABASE_URL)
@@ -24,7 +27,6 @@ if (!url && !DATABASE_URL)
 const tooltip = "Waiting for database...";
 const { getAttemptsData, markAttempt } = makeAttemptsTracker(MAX_ATTEMPTS);
 
-const database = pg();
 const spinner = ora(`${tooltip} ${getAttemptsData().display}`).start();
 
 /**
@@ -41,7 +43,6 @@ const handleSuccess = () => {
  * or closing the process if attempts have been exceeded.
  */
 const handleFailure = () => {
-  database.end();
   markAttempt();
   const { attempts } = getAttemptsData();
 
@@ -55,8 +56,7 @@ const handleFailure = () => {
  * Main CLI entry-point.
  */
 const main = (): Promise<void> =>
-  database(url || (DATABASE_URL as string))
-    .connect()
+  drivers[driver](url || (DATABASE_URL as string))
     .then(handleSuccess)
     .catch(handleFailure);
 
